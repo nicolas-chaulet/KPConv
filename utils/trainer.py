@@ -61,7 +61,6 @@ class ModelTrainer:
         my_vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='KernelPointNetwork')
         self.saver = tf.train.Saver(my_vars, max_to_keep=100)
 
-        """
         print('*************************************')
         sum = 0
         for var in tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope='KernelPointNetwork'):
@@ -77,7 +76,6 @@ class ModelTrainer:
             sum += np.prod(var.shape)
         print('total parameters : ', sum)
         print('*************************************')
-        """
 
         # Create a session for running Ops on the Graph.
         on_CPU = False
@@ -101,6 +99,10 @@ class ModelTrainer:
             restorer = tf.train.Saver(restore_vars)
             restorer.restore(self.sess, restore_snap)
             print("Model restored.")
+
+        file_writer = tf.summary.FileWriter(join(model.saving_path,"tensorboard"), self.sess.graph)
+        file_writer.close()
+
 
     def add_train_ops(self, model):
         """
