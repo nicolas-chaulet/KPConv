@@ -223,7 +223,6 @@ if __name__ == '__main__':
 
     # Trainer class
     trainer = ModelTrainer(model)
-    exit()
     t2 = time.time()
 
     print('\n----------------')
